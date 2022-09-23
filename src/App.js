@@ -10,6 +10,7 @@ import Menu from './componentes/Menu';
 
 function App() {
   return (
+
     <BrowserRouter>
       <Switch>
         <ProviderContext>
