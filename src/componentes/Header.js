@@ -11,7 +11,7 @@ function Header() {
       {searchBar ? <BarraDePesquisa /> : ''}
       <RadioInput />
     </div>
-  )
+  );
 }
 
-  export default Header;
+export default Header;
