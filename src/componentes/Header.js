@@ -3,7 +3,7 @@ import BarraDePesquisa from './BarraDePesquisa';
 import RadioInput from './RadioInput';
 import MyContext from '../context/Context';
 
-const Header = () => {
+function Header() {
   const { searchBar } = useContext(MyContext);
 
   return (
@@ -14,4 +14,4 @@ const Header = () => {
   )
 }
 
-export default Header;
+  export default Header;
