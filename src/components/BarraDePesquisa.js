@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 // import PropTypes from 'prop-types'
-import { filterIngredient, filterName, filterFirstLetter } from '../services/api';
+import { filterIngredient,
+  filterName,
+  filterFirstLetter,
+  filterIngredientDrink, filterNameDrink, filterFirstLetterDrink } from '../services/api';
 
 function BarraDePesquisa() {
   const [searchInput, setSearchInput] = useState('');
   const [filterSearch, setFilterSearch] = useState('');
   const [dataSearch, setDataSearch] = useState({});
+  const { location: { pathname } } = useHistory();
 
+  console.log(dataSearch); // Fazer map com o retorno da API
   const verifySearch = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredient(searchInput);
@@ -23,6 +29,34 @@ function BarraDePesquisa() {
         const data = await filterFirstLetter(searchInput);
         setDataSearch(data);
       }
+    }
+  };
+
+  const verifySearchDrink = async () => {
+    if (filterSearch === 'ingredient') {
+      const data = await filterIngredientDrink(searchInput);
+      setDataSearch(data);
+    }
+    if (filterSearch === 'name') {
+      const data = await filterNameDrink(searchInput);
+      setDataSearch(data);
+    }
+    if (filterSearch === 'first') {
+      if (searchInput.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+      } else {
+        const data = await filterFirstLetterDrink(searchInput);
+        setDataSearch(data);
+      }
+    }
+  };
+
+  const verifyRoute = () => {
+    if (pathname === '/meals') {
+      verifySearch();
+    }
+    if (pathname === '/drinks') {
+      verifySearchDrink();
     }
   };
 
@@ -72,7 +106,7 @@ function BarraDePesquisa() {
         type="button"
         value="Pesquisar"
         data-testid="exec-search-btn"
-        onClick={ verifySearch }
+        onClick={ verifyRoute }
       />
     </div>
   );
