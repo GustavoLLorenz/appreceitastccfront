@@ -7,6 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ProviderContext from './context/ProviderContext';
 import TelaDeLogin from './componentes/TelaDeLogin';
 import Menu from './componentes/Menu';
+import Drinks from './pages/Drinks';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -16,7 +20,10 @@ function App() {
         <ProviderContext>
           <Route exact path="/" component={ TelaDeLogin } />
           <Route exact path="/meals" component={ Menu } />
-
+          <Route exact path="/drinks" component={ Drinks } />
+          <Route exact path="/profile" component={ Profile } />
+          <Route exact path="/done-recipes" component={ DoneRecipes } />
+          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
         </ProviderContext>
       </Switch>
     </BrowserRouter>
