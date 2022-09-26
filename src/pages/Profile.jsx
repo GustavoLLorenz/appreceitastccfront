@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function Menu() {
+function Profile() {
   return (
-    <Header title="Meals" search />
+    <Header title="Profile" />
   );
 }
 
-export default Menu;
+export default Profile;
