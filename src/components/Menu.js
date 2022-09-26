@@ -1,10 +1,10 @@
 import React from 'react';
-import filtersSearch from '../functions/filtersSeach';
+import Header from './Header';
 
 function Menu() {
   return (
     <div>
-      {filtersSearch()}
+      <Header title="Meals" search />
       Menu
     </div>
   );
