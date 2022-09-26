@@ -5,13 +5,8 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProviderContext from './context/ProviderContext';
-<<<<<<< HEAD
 import TelaDeLogin from './components/TelaDeLogin';
 import Menu from './components/Menu';
-=======
-import TelaDeLogin from './componentes/TelaDeLogin';
-import Menu from './componentes/Menu';
->>>>>>> 961db85b1444254e45ae4bbbaf31395e4b39b5f5
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';

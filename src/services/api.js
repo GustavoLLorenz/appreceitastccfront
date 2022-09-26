@@ -1,5 +1,3 @@
-// Meals
-
 export async function filterIngredient(id) {
   const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${id}`;
   const response = await fetch(URL);
@@ -20,7 +18,6 @@ export async function filterFirstLetter(id) {
   const data = await response.json();
   return data;
 }
-
 // Drinks
 
 export async function filterIngredientDrink(id) {
