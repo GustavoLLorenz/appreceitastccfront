@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './Context';
 
@@ -6,6 +6,7 @@ function ProviderContext({ children }) {
   const [userEmail, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonDisable, setButtonDisable] = useState(true);
+  const [searchBar, setSearchBar] = useState(true);
 
   const contextValue = {
     buttonDisable,
@@ -14,6 +15,8 @@ function ProviderContext({ children }) {
     setEmail,
     setPassword,
     setButtonDisable,
+    searchBar,
+    setSearchBar,
   };
 
   return (
