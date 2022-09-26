@@ -1,20 +1,26 @@
 import React from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProviderContext from './context/ProviderContext';
+import TelaDeLogin from './componentes/TelaDeLogin';
+import Menu from './componentes/Menu';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+
+    <BrowserRouter>
+      <Switch>
+        <ProviderContext>
+          <Route exact path="/" component={ TelaDeLogin } />
+          <Route exact path="/meals" component={ Menu } />
+
+        </ProviderContext>
+      </Switch>
+    </BrowserRouter>
+
   );
 }
 
