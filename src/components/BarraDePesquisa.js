@@ -14,15 +14,42 @@ function BarraDePesquisa() {
   const [filterSearch, setFilterSearch] = useState('');
   // const [dataSearch, setDataSearch] = useState({});
   const { location: { pathname } } = useHistory();
+  const history = useHistory();
 
-  // console.log(dataSearch); // Fazer map com o retorno da API
+  const globalAlert = 'Sorry, we haven\'t found any recipes for these filters.';
+  const verifySearchHelper = async () => {
+    if (data.meals === null) {
+      global.alert(globalAlert);
+    } else {
+      if (data.meals.length === 1) {
+        history.push(`/meals/${data.meals[0].idMeal}`);
+      }
+      setDataSearch(data);
+    }
+  };
+
   const verifySearch = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredient(searchInput);
-      setDataSearch(data);
+      console.log(data.meals);
+      verifySearchHelper();
+      /*       if (data.meals === null) {
+        global.alert(globalAlert);
+      } else {
+        if (data.meals.length === 1) {
+          history.push(`/meals/${data.meals[0].idMeal}`);
+        }
+        setDataSearch(data);
+      } */
     }
     if (filterSearch === 'name') {
       const data = await filterName(searchInput);
+      if (data.meals === null) {
+        global.alert(globalAlert);
+      } else if (data.meals.length === 1) {
+        history.push(`/meals/${data.meals[0].idMeal}`);
+      }
+
       setDataSearch(data);
     }
     if (filterSearch === 'first') {
@@ -30,26 +57,50 @@ function BarraDePesquisa() {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await filterFirstLetter(searchInput);
+        if (data.meals === null) {
+          global.alert(globalAlert);
+        } else if (data.meals.length === 1) {
+          history.push(`/meals/${data.meals[0].idMeal}`);
+        }
+
         setDataSearch(data);
       }
+    }
+  };
+  const verifySearchDrinkHelper = async () => {
+    if (data.drinks === null) {
+      global.alert(globalAlert);
+    } else if (data.drinks.length === 1) {
+      history.push(`/drinks/${data.drinks[0].idDrink}`);
     }
   };
 
   const verifySearchDrink = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredientDrink(searchInput);
-      setDataSearchDrink(data);
+      verifySearchDrinkHelper();
+      setDataSearch(data);
     }
     if (filterSearch === 'name') {
       const data = await filterNameDrink(searchInput);
-      setDataSearchDrink(data);
+      if (data.drinks === null) {
+        global.alert(globalAlert);
+      } else if (data.drinks.length === 1) {
+        history.push(`/drinks/${data.drinks[0].idDrink}`);
+      }
+      setDataSearch(data);
     }
     if (filterSearch === 'first') {
       if (searchInput.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await filterFirstLetterDrink(searchInput);
-        setDataSearchDrink(data);
+        if (data.drinks === null) {
+          global.alert(globalAlert);
+        } else if (data.drinks.length === 1) {
+          history.push(`/drinks/${data.drinks[0].idDrink}`);
+        }
+        setDataSearch(data);
       }
     }
   };
