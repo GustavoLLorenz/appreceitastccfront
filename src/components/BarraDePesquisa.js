@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import MyContext from '../context/Context';
 // import PropTypes from 'prop-types'
 import { filterIngredient,
   filterName,
@@ -7,9 +8,11 @@ import { filterIngredient,
   filterIngredientDrink, filterNameDrink, filterFirstLetterDrink } from '../services/api';
 
 function BarraDePesquisa() {
+  const { setDataSearch, setDataSearchDrink } = useContext(MyContext);
+
   const [searchInput, setSearchInput] = useState('');
   const [filterSearch, setFilterSearch] = useState('');
-  const [dataSearch, setDataSearch] = useState({});
+  // const [dataSearch, setDataSearch] = useState({});
   const { location: { pathname } } = useHistory();
   const history = useHistory();
 
@@ -76,7 +79,6 @@ function BarraDePesquisa() {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredientDrink(searchInput);
       verifySearchDrinkHelper();
-
       setDataSearch(data);
     }
     if (filterSearch === 'name') {
