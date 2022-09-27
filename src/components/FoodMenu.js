@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import MyContext from '../context/Context';
+import CardRecipe from './CardRecipe';
 
 function Cardapio() {
   const { dataSearch } = useContext(MyContext);
@@ -11,7 +12,12 @@ function Cardapio() {
       <ul>
         {Object.keys(dataSearch).length !== 0 ? (
           (dataSearch.meals).splice(0, maximumLine).map((food) => (
-            <li key={ food.idMeal }>{food.strMeal}</li>
+            <CardRecipe
+              key={ food.idMeal }
+              imageSrc={ food.strMealThumb }
+              index={ food.idMeal }
+              name={ food.strMeal }
+            />
           ))
         ) : ''}
       </ul>
