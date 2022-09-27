@@ -17,30 +17,20 @@ function BarraDePesquisa() {
   const history = useHistory();
 
   const globalAlert = 'Sorry, we haven\'t found any recipes for these filters.';
-  const verifySearchHelper = async () => {
+  const verifySearchHelper = async (data) => {
     if (data.meals === null) {
       global.alert(globalAlert);
-    } else {
-      if (data.meals.length === 1) {
-        history.push(`/meals/${data.meals[0].idMeal}`);
-      }
-      setDataSearch(data);
+    } else if (data.meals.length === 1) {
+      history.push(`/meals/${data.meals[0].idMeal}`);
     }
+    setDataSearch(data);
   };
 
   const verifySearch = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredient(searchInput);
-      console.log(data.meals);
-      verifySearchHelper();
-      /*       if (data.meals === null) {
-        global.alert(globalAlert);
-      } else {
-        if (data.meals.length === 1) {
-          history.push(`/meals/${data.meals[0].idMeal}`);
-        }
-        setDataSearch(data);
-      } */
+      // console.log(data.meals);
+      verifySearchHelper(data);
     }
     if (filterSearch === 'name') {
       const data = await filterName(searchInput);
@@ -49,7 +39,6 @@ function BarraDePesquisa() {
       } else if (data.meals.length === 1) {
         history.push(`/meals/${data.meals[0].idMeal}`);
       }
-
       setDataSearch(data);
     }
     if (filterSearch === 'first') {
@@ -62,24 +51,23 @@ function BarraDePesquisa() {
         } else if (data.meals.length === 1) {
           history.push(`/meals/${data.meals[0].idMeal}`);
         }
-
         setDataSearch(data);
       }
     }
   };
-  const verifySearchDrinkHelper = async () => {
+  const verifySearchDrinkHelper = async (data) => {
     if (data.drinks === null) {
       global.alert(globalAlert);
     } else if (data.drinks.length === 1) {
       history.push(`/drinks/${data.drinks[0].idDrink}`);
     }
+    setDataSearchDrink(data);
   };
 
   const verifySearchDrink = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredientDrink(searchInput);
-      verifySearchDrinkHelper();
-      setDataSearch(data);
+      verifySearchDrinkHelper(data);
     }
     if (filterSearch === 'name') {
       const data = await filterNameDrink(searchInput);
@@ -88,7 +76,7 @@ function BarraDePesquisa() {
       } else if (data.drinks.length === 1) {
         history.push(`/drinks/${data.drinks[0].idDrink}`);
       }
-      setDataSearch(data);
+      setDataSearchDrink(data);
     }
     if (filterSearch === 'first') {
       if (searchInput.length > 1) {
@@ -100,7 +88,7 @@ function BarraDePesquisa() {
         } else if (data.drinks.length === 1) {
           history.push(`/drinks/${data.drinks[0].idDrink}`);
         }
-        setDataSearch(data);
+        setDataSearchDrink(data);
       }
     }
   };

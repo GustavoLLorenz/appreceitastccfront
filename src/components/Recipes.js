@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
-function CardRecipe({ imageSrc, index, name }) {
+function Recipes({ imageSrc, index, name }) {
+  console.log(index);
+  console.log(`${index}-recipe-card`);
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <img
@@ -13,10 +15,10 @@ function CardRecipe({ imageSrc, index, name }) {
   );
 }
 
-CardRecipe.propTypes = {
+Recipes.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };
 
-export default CardRecipe;
+export default Recipes;
