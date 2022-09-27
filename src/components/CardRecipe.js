@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function CardRecipe({ imageSrc, index, name}) {
+function CardRecipe({ imageSrc, index, name }) {
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <img
