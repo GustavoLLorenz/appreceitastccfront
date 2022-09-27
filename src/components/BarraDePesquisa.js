@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import MyContext from '../context/Context';
 // import PropTypes from 'prop-types'
 import { filterIngredient,
   filterName,
@@ -7,12 +8,14 @@ import { filterIngredient,
   filterIngredientDrink, filterNameDrink, filterFirstLetterDrink } from '../services/api';
 
 function BarraDePesquisa() {
+  const { setDataSearch, setDataSearchDrink } = useContext(MyContext);
+
   const [searchInput, setSearchInput] = useState('');
   const [filterSearch, setFilterSearch] = useState('');
-  const [dataSearch, setDataSearch] = useState({});
+  // const [dataSearch, setDataSearch] = useState({});
   const { location: { pathname } } = useHistory();
 
-  console.log(dataSearch); // Fazer map com o retorno da API
+  // console.log(dataSearch); // Fazer map com o retorno da API
   const verifySearch = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredient(searchInput);
@@ -35,18 +38,18 @@ function BarraDePesquisa() {
   const verifySearchDrink = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredientDrink(searchInput);
-      setDataSearch(data);
+      setDataSearchDrink(data);
     }
     if (filterSearch === 'name') {
       const data = await filterNameDrink(searchInput);
-      setDataSearch(data);
+      setDataSearchDrink(data);
     }
     if (filterSearch === 'first') {
       if (searchInput.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await filterFirstLetterDrink(searchInput);
-        setDataSearch(data);
+        setDataSearchDrink(data);
       }
     }
   };
