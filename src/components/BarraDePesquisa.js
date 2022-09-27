@@ -8,7 +8,7 @@ import { filterIngredient,
   filterIngredientDrink, filterNameDrink, filterFirstLetterDrink } from '../services/api';
 
 function BarraDePesquisa() {
-  const { setDataSearch, setDataSearchDrink } = useContext(MyContext);
+  const { setDataSearch /* setDataSearchDrink */ } = useContext(MyContext);
 
   const [searchInput, setSearchInput] = useState('');
   const [filterSearch, setFilterSearch] = useState('');

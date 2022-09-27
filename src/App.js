@@ -11,6 +11,7 @@ import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
@@ -20,7 +21,9 @@ function App() {
         <ProviderContext>
           <Route exact path="/" component={ TelaDeLogin } />
           <Route exact path="/meals" component={ Menu } />
+          <Route exact path="/meals/:id" component={ RecipeDetails } />
           <Route exact path="/drinks" component={ Drinks } />
+          <Route exact path="/drinks/:id" component={ RecipeDetails } />
           <Route exact path="/profile" component={ Profile } />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
