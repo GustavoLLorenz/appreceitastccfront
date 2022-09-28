@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 function Recipes({ imageSrc, index, name }) {
-  // console.log(`${index}-recipe-card`);
   return (
     <li data-testid={ `${index}-recipe-card` }>
       <img

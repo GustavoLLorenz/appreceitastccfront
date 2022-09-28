@@ -46,6 +46,7 @@ function SearchBar() {
       }
     }
   };
+
   const verifySearchDrinkHelper = async (data) => {
     if (data.drinks === null) {
       global.alert(globalAlert);
