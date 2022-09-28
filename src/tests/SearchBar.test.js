@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
@@ -11,8 +11,8 @@ import oneFoodMock from './Mocks/OneFoodMock';
 
 describe('Testando a SearchBar', () => {
   test('Testando campos de busca', async () => {
-    // const { history } = renderWithRouter(<App />);
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
+    // renderWithRouter(<App />);
     // Tela Login
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
@@ -151,7 +151,7 @@ describe('Testando a SearchBar', () => {
     userEvent.click(buttonSearch);
 
     // Testando o windows.alert
-    jest.spyOn(window, 'alert').mockImplementation(() => {});
+    // jest.spyOn(window, 'alert').mockImplementation(() => {});
 
     // Busca com apenas 1 elemento (pelo nome)
 
@@ -175,7 +175,10 @@ describe('Testando a SearchBar', () => {
     expect(global.fetch).toHaveBeenCalledWith(apiOneFood);
 
     // history.push('/meals/53014');
-    // expect(location.pathname).toBe('/meals/53014');
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/meals/53014');
+    });
     // Falta terminar esse requisito.
   });
 });
