@@ -5,45 +5,52 @@ import Recipes from './Recipes';
 function DrinkMenu() {
   const { dataSearchDrink } = useContext(MyContext);
   const [fetchDataDrinks, setFetchDataDrinks] = useState({});
-  const maximumLine = 12;
+  // const maximumLine = 12;
   useEffect(() => {
     const apiRequest = async () => {
       const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       const response = await fetch(URL);
       const data = await response.json();
-
-      return setFetchDataDrinks(data);
-      // return data;
+      setFetchDataDrinks(data);
     };
     apiRequest();
-    // setFetchData(apiRequest);
   }, []);
+
+  const lenghtArray = (array) => {
+    const magicNumber = 12;
+    if ((array.drinks).length > magicNumber) {
+      return (array.drinks).slice(0, magicNumber);
+    }
+    return (array.drinks).slice(0, array.drinks.length);
+  };
 
   return (
     <div>
       <h2>Cardápio de drink</h2>
-      {Object.keys(fetchDataDrinks).length !== 0 && fetchDataDrinks.drinks !== null ? (
-        (fetchDataDrinks.drinks).splice(0, maximumLine).map((drink, index) => (
-          <Recipes
-            key={ drink.idDrink }
-            imageSrc={ drink.strDrinkThumb }
-            index={ index }
-            name={ drink.strDrink }
-          />
-        ))
-      ) : ''}
       <ul>
-        {Object.keys(dataSearchDrink).length !== 0 && dataSearchDrink.drinks !== null ? (
-          (dataSearchDrink.drinks).splice(0, maximumLine).map((drink) => (
+        {(Object.keys(dataSearchDrink).length === 0
+        && Object.keys(fetchDataDrinks).length !== 0) && (
+          // repetionFunction(fetchDataDrinks)
+          (lenghtArray(fetchDataDrinks)).map((drink, index) => (
             <Recipes
               key={ drink.idDrink }
               imageSrc={ drink.strDrinkThumb }
-              index={ drink.idDrink }
+              index={ index }
               name={ drink.strDrink }
             />
-
           ))
-        ) : 'Menu'}
+        )}
+        {Object.keys(dataSearchDrink).length !== 0 && (
+          // repetionFunction(dataSearchDrink)
+          (lenghtArray(dataSearchDrink)).map((drink, i) => (
+            <Recipes
+              key={ drink.idDrink }
+              imageSrc={ drink.strDrinkThumb }
+              index={ i }
+              name={ drink.strDrink }
+            />
+          ))
+        )}
       </ul>
     </div>
   );

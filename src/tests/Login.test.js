@@ -2,8 +2,8 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-/* import TelaDeLogin from '../componentes/TelaDeLogin'; */
 import renderWithRouter from './renderWithRouter';
+// import TelaDeLogin from '../components/TelaDeLogin';
 
 describe('Todos os testes', () => {
   test('Verifica se a tela Login renderiza corretamente', () => {

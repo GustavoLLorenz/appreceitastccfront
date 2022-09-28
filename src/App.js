@@ -5,7 +5,7 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProviderContext from './context/ProviderContext';
-import TelaDeLogin from './components/TelaDeLogin';
+import Login from './components/Login';
 import Menu from './components/Menu';
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <ProviderContext>
-          <Route exact path="/" component={ TelaDeLogin } />
+          <Route exact path="/" component={ Login } />
           <Route exact path="/meals" component={ Menu } />
           <Route exact path="/meals/:id" component={ RecipeDetails } />
           <Route exact path="/drinks" component={ Drinks } />

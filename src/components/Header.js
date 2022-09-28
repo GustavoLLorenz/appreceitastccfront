@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
-import BarraDePesquisa from './BarraDePesquisa';
+import SearchBar from './SearchBar';
 
 function Header(props) {
   const [searchBar, setSearchBar] = useState(false);
@@ -28,7 +28,7 @@ function Header(props) {
           />
         </button>
       )}
-      {searchBar && <BarraDePesquisa /> }
+      {searchBar && <SearchBar /> }
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 
-function TelaDeLogin() {
+function Login() {
   const { userEmail, password, buttonDisable,
     setEmail, setPassword, setButtonDisable } = useContext(MyContext);
   const history = useHistory();
@@ -58,4 +58,4 @@ function TelaDeLogin() {
   );
 }
 
-export default TelaDeLogin;
+export default Login;
