@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
+
 import { getDrinkById, getMealById } from '../services/recipesDetails';
 
 function RecipeDetails() {
