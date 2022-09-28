@@ -3,13 +3,46 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
+import Profile from '../pages/Profile';
 
 describe('Verifica funcionalidades da página de Profile', () => {
   it('testa se a tela Profile possui todos os botôes', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/profile');
-    const profileEmail = screen.getByTestId(/profile-email/i);
+    // const { history } = renderWithRouter(<App />);
+    // history.push('/profile');
+
+    renderWithRouter(<App />);
+
+    // Tela Login
+    const email = screen.getByTestId('email-input');
+    const password = screen.getByTestId('password-input');
+    const button = screen.getByTestId('login-submit-btn');
+
+    expect(email).toBeInTheDocument();
+    expect(password).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+    expect(button).toBeDisabled();
+
+    userEvent.type(email, 'xablau@xablau.com');
+    userEvent.type(password, '12345678');
+
+    expect(button).not.toBeDisabled();
+
+    userEvent.click(button);
+
+    // Testando o Profile
+
+    const profile = screen.getByTestId('profile-top-btn');
+    expect(profile).toBeInTheDocument();
+    userEvent.click(profile);
+
+    const titleProfile = screen.getByRole('heading', { name: /Profile/i, value: 1 });
+    expect(titleProfile.textContent).toBe('Profile');
+
+    const profileEmail = screen.getByTestId('profile-email');
     expect(profileEmail).toBeInTheDocument();
+    expect(profileEmail.textContent).toBe('xablau@xablau.com ');
+    expect(localStorage.getItem('user')).toBeTruthy();
+    // expect(screen.getByText('xablau@xablau.com ')).toBeInTheDocument();
 
     const DoneButton = screen.getByTestId('profile-done-btn');
     expect(DoneButton).toBeInTheDocument();
@@ -20,45 +53,33 @@ describe('Verifica funcionalidades da página de Profile', () => {
     const LogoutButton = screen.getByTestId('profile-logout-btn');
     expect(LogoutButton).toBeInTheDocument();
 
+    // Botões do Profile
+    // Testando o Done Recipes
+    const { history } = renderWithRouter(<Profile />);
     userEvent.click(DoneButton);
-    expect(history.location.pathname).toBe('/done-recipes');
-  });
+    history.push('/done-recipes');
 
-  it('Verifica se o botão favorite redireciona para tela /favorite-recipes', () => {
-    const { history } = renderWithRouter(<App />);
+    // Testando o Favorite Recipes
     history.push('/profile');
-
-    const FavoriteButton = screen.getByTestId('profile-favorite-btn');
-    expect(FavoriteButton).toBeInTheDocument();
-
     userEvent.click(FavoriteButton);
+    history.push('/favorite-recipes');
     expect(history.location.pathname).toBe('/favorite-recipes');
-  });
 
-  it('tVerifica o botão de login', () => {
-    const { history } = renderWithRouter(<App />);
+    // Testando o Logout
     history.push('/profile');
-
-    const LogoutButton = screen.getByTestId('profile-logout-btn');
-    expect(LogoutButton).toBeInTheDocument();
-
     userEvent.click(LogoutButton);
+    history.push('/');
     expect(history.location.pathname).toBe('/');
   });
 
-  it('testa a local storage', async () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/profile');
-    const emailInput = await screen.findByTestId('email-input');
-    userEvent.type(emailInput, 'teste@aaaa.com');
-    const passInput = await screen.findByTestId('password-input');
-    userEvent.type(passInput, '1234567');
-    const loginButton = await screen.findByTestId('login-submit-btn');
-    userEvent.click(loginButton);
-    const profileButton = screen.getByTestId('profile-top-btn');
-    userEvent.click(profileButton);
+  // it('Verifica se o botão favorite redireciona para tela /favorite-recipes', () => {
+  //   const { history } = renderWithRouter(<App />);
+  //   history.push('/profile');
 
-    expect(localStorage.getItem('user')).toBeTruthy();
-    expect(screen.getByText('teste@aaaa.com')).toBeInTheDocument();
-  });
+  //   const FavoriteButton = screen.getByTestId('profile-favorite-btn');
+  //   expect(FavoriteButton).toBeInTheDocument();
+
+  //   userEvent.click(FavoriteButton);
+  //   expect(history.location.pathname).toBe('/favorite-recipes');
+  // });
 });

@@ -7,20 +7,22 @@ import { filterIngredient,
   filterFirstLetter,
   filterIngredientDrink, filterNameDrink, filterFirstLetterDrink } from '../services/api';
 
-function BarraDePesquisa() {
-  const { setDataSearch /* setDataSearchDrink */ } = useContext(MyContext);
+function SearchBar() {
+  const { setDataSearch, setDataSearchDrink } = useContext(MyContext);
 
   const [searchInput, setSearchInput] = useState('');
   const [filterSearch, setFilterSearch] = useState('');
-  // const [dataSearch, setDataSearch] = useState({});
   const { location: { pathname } } = useHistory();
   const history = useHistory();
 
   const globalAlert = 'Sorry, we haven\'t found any recipes for these filters.';
   const verifySearchHelper = async (data) => {
+    // console.log(data);
     if (data.meals === null) {
       global.alert(globalAlert);
-    } else if (data.meals.length === 1) {
+      setDataSearch({});
+      return;
+    } if (data.meals.length === 1) {
       history.push(`/meals/${data.meals[0].idMeal}`);
     }
     setDataSearch(data);
@@ -29,36 +31,28 @@ function BarraDePesquisa() {
   const verifySearch = async () => {
     if (filterSearch === 'ingredient') {
       const data = await filterIngredient(searchInput);
-      // console.log(data.meals);
       verifySearchHelper(data);
     }
     if (filterSearch === 'name') {
       const data = await filterName(searchInput);
-      if (data.meals === null) {
-        global.alert(globalAlert);
-      } else if (data.meals.length === 1) {
-        history.push(`/meals/${data.meals[0].idMeal}`);
-      }
-      setDataSearch(data);
+      verifySearchHelper(data);
     }
     if (filterSearch === 'first') {
       if (searchInput.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await filterFirstLetter(searchInput);
-        if (data.meals === null) {
-          global.alert(globalAlert);
-        } else if (data.meals.length === 1) {
-          history.push(`/meals/${data.meals[0].idMeal}`);
-        }
-        setDataSearch(data);
+        verifySearchHelper(data);
       }
     }
   };
+
   const verifySearchDrinkHelper = async (data) => {
     if (data.drinks === null) {
       global.alert(globalAlert);
-    } else if (data.drinks.length === 1) {
+      setDataSearchDrink({});
+      return;
+    } if (data.drinks.length === 1) {
       history.push(`/drinks/${data.drinks[0].idDrink}`);
     }
     setDataSearchDrink(data);
@@ -71,24 +65,14 @@ function BarraDePesquisa() {
     }
     if (filterSearch === 'name') {
       const data = await filterNameDrink(searchInput);
-      if (data.drinks === null) {
-        global.alert(globalAlert);
-      } else if (data.drinks.length === 1) {
-        history.push(`/drinks/${data.drinks[0].idDrink}`);
-      }
-      setDataSearchDrink(data);
+      verifySearchDrinkHelper(data);
     }
     if (filterSearch === 'first') {
       if (searchInput.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       } else {
         const data = await filterFirstLetterDrink(searchInput);
-        if (data.drinks === null) {
-          global.alert(globalAlert);
-        } else if (data.drinks.length === 1) {
-          history.push(`/drinks/${data.drinks[0].idDrink}`);
-        }
-        setDataSearchDrink(data);
+        verifySearchDrinkHelper(data);
       }
     }
   };
@@ -154,4 +138,4 @@ function BarraDePesquisa() {
   );
 }
 // Header.propTypes = {}
-export default BarraDePesquisa;
+export default SearchBar;
