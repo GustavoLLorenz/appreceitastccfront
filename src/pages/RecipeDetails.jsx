@@ -16,7 +16,7 @@ function RecipeDetails() {
   useEffect(() => {
     if (detailsDrinks) getDrinkById(id).then(setRecipe);
     else if (detailsMeals) getMealById(id).then(setRecipe);
-  }, [id, detailsDrinks, detailsMeals]);
+  }, [id, detailsDrinks, detailsMeals, setRecipe]);
 
   return (
     <header>
