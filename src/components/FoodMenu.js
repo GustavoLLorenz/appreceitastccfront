@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MyContext from '../context/Context';
 import Recipes from './Recipes';
+import CategoryButton from './CategoryButton';
+import ButtonFilterReset from './ButtonFilterReset';
 
 function Cardapio() {
   const { dataSearch } = useContext(MyContext);
   const [fetchData, setFetchData] = useState({});
+  // console.log
   // const maximumLine = 12;
   useEffect(() => {
     const apiRequest = async () => {
@@ -12,6 +15,7 @@ function Cardapio() {
       const response = await fetch(URL);
       const data = await response.json();
       setFetchData(data);
+      console.log(data);
     };
     apiRequest();
   }, []);
@@ -24,20 +28,11 @@ function Cardapio() {
     return (array.meals).slice(0, array.meals.length);
   };
 
-  // const repetionFunction = (parametro) => {
-  //   (lenghtArray(parametro)).map((food, index) => (
-  //     <Recipes
-  //       key={ food.idMeal }
-  //       imageSrc={ food.strMealThumb }
-  //       index={ index }
-  //       name={ food.strMeal }
-  //     />
-  //   ));
-  // };
-
   return (
     <div>
       <h2>Cardápio de comida</h2>
+      <CategoryButton />
+      <ButtonFilterReset />
       <ul>
         {(Object.keys(dataSearch).length === 0
         && Object.keys(fetchData).length !== 0) && (

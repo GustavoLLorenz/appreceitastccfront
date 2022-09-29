@@ -7,7 +7,6 @@ function DoneRecipes() {
   const [searchMeals, setSearchMeals] = useState(false);
   const [searchDrinks, setSearchDrinks] = useState(false);
   const [searchAll, setSearchAll] = useState(true);
-
   const doneRecipes = [
     {
       id: '52771',
@@ -88,7 +87,7 @@ function DoneRecipes() {
           >
             <img
               src={ recipe.image }
-              alt=""
+              alt={ `Img-${index}` }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
@@ -126,7 +125,7 @@ function DoneRecipes() {
           <Link to={ (`/meals/${recipe.id}`) }>
             <img
               src={ recipe.image }
-              alt=""
+              alt={ `Img-${index}` }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
@@ -151,7 +150,8 @@ function DoneRecipes() {
           <Link to={ (`/drinks/${recipe.id}`) }>
             <img
               src={ recipe.image }
-              alt=""
+              alt={ `Img-${index}` }
+              role="presentation"
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>

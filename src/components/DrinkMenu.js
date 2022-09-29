@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import MyContext from '../context/Context';
 import Recipes from './Recipes';
+import CategoryButtonDrink from './CategoryButtonDrink';
+import ButtonFilterReset from './ButtonFilterReset';
 
 function DrinkMenu() {
   const { dataSearchDrink } = useContext(MyContext);
@@ -27,6 +29,8 @@ function DrinkMenu() {
   return (
     <div>
       <h2>Cardápio de drink</h2>
+      <CategoryButtonDrink />
+      <ButtonFilterReset />
       <ul>
         {(Object.keys(dataSearchDrink).length === 0
         && Object.keys(fetchDataDrinks).length !== 0) && (
