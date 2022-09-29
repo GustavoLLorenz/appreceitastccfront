@@ -20,6 +20,7 @@ describe('Verifica funcionalidades da página de Profile', () => {
     const doneTag2 = screen.getByText(/Curry/i);
     expect(doneTag2).toBeInTheDocument();
   }
+
   function drinkFood(id) {
     const imgDrink = screen.getByAltText(`Img-${id}`);
     expect(imgDrink).toHaveAttribute('src', 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg');
