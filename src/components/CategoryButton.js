@@ -5,6 +5,8 @@ import MyContext from '../context/Context';
 function CategoryButton() {
   const { setDataSearch } = useContext(MyContext);
   const [button, setButton] = useState([]);
+  const [toggie, setToggie] = useState(false);
+
   useEffect(() => {
     const apiRequest = async () => {
       const magicNumber = 5;
@@ -19,7 +21,14 @@ function CategoryButton() {
 
   const handleClick = async ({ target }) => {
     const api = await filterButtonCategoryMeals(target.value);
-    setDataSearch(api);
+    if (toggie === false) {
+      setDataSearch(api);
+      setToggie(true);
+    }
+    if (toggie === true) {
+      setDataSearch({});
+      setToggie(false);
+    }
   };
 
   return (

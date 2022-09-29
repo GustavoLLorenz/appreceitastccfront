@@ -5,6 +5,8 @@ import MyContext from '../context/Context';
 function CategoryButtonDrink() {
   const { setDataSearchDrink } = useContext(MyContext);
   const [buttonDrink, setButtonDrink] = useState([]);
+  const [toggie, setToggie] = useState(false);
+
   useEffect(() => {
     const apiRequest = async () => {
       const magicNumber = 5;
@@ -18,9 +20,20 @@ function CategoryButtonDrink() {
   }, []);
 
   const handleClick = async ({ target }) => {
-    const api = await filterButtonCategoryDrinks(target.value);
+    // const api = await filterButtonCategoryDrinks(target.value);
     // console.log(api);
-    setDataSearchDrink(api);
+    // setDataSearchDrink(api);
+
+    const api = await filterButtonCategoryDrinks(target.value);
+
+    if (toggie === false) {
+      setDataSearchDrink(api);
+      setToggie(true);
+    }
+    if (toggie === true) {
+      setDataSearchDrink({});
+      setToggie(false);
+    }
   };
 
   return (
