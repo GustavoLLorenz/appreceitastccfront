@@ -41,6 +41,7 @@ function DrinkMenu() {
               imageSrc={ drink.strDrinkThumb }
               index={ index }
               name={ drink.strDrink }
+              id={ drink.idDrink }
             />
           ))
         )}
@@ -52,6 +53,7 @@ function DrinkMenu() {
               imageSrc={ drink.strDrinkThumb }
               index={ i }
               name={ drink.strDrink }
+              id={ drink.idDrink }
             />
           ))
         )}

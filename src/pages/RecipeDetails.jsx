@@ -16,8 +16,7 @@ function RecipeDetails() {
   useEffect(() => {
     if (detailsDrinks) getDrinkById(id).then(setRecipe);
     else if (detailsMeals) getMealById(id).then(setRecipe);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, detailsDrinks, detailsMeals]);
+  }, [id, detailsDrinks, detailsMeals, setRecipe]);
 
   return (
     <header>
