@@ -1,17 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-
-const test = require('clipboard-copy');
-
-function linkShare(id, type) {
-  if (type === 'bebida') {
-    test(`/drinks/${id}`);
-  } else {
-    test(`/meals/${id}`);
-  }
-}
+import ShareButton from '../components/ShareButton';
 
 const mockRecipe = [
   {
@@ -97,17 +87,7 @@ function FavoriteRecipes() {
               alt="Icone de Favorito"
             />
           </button>
-          <button
-            type="button"
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ () => (linkShare(recipe.id, recipe.type)) }
-            src={ shareIcon }
-          >
-            <img
-              src={ shareIcon }
-              alt="Icone para Compartilhar link"
-            />
-          </button>
+          <ShareButton index={ index } recipe={ recipe } />
         </div>
       ))}
     </div>
