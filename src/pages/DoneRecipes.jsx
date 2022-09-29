@@ -7,7 +7,6 @@ function DoneRecipes() {
   const [searchMeals, setSearchMeals] = useState(false);
   const [searchDrinks, setSearchDrinks] = useState(false);
   const [searchAll, setSearchAll] = useState(true);
-
   const doneRecipes = [
     {
       id: '52771',
@@ -53,7 +52,7 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header />
+      <Header title="Done Recipes" />
       <div>
 
         <button
@@ -152,6 +151,7 @@ function DoneRecipes() {
             <img
               src={ recipe.image }
               alt=""
+              role="presentation"
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
