@@ -47,7 +47,9 @@ function Cardapio() {
               imageSrc={ food.strMealThumb }
               index={ index }
               name={ food.strMeal }
+              id={ food.idMeal }
             />
+
           ))
         )}
         {Object.keys(dataSearch).length !== 0 && (
@@ -57,6 +59,7 @@ function Cardapio() {
               imageSrc={ food.strMealThumb }
               index={ i }
               name={ food.strMeal }
+              id={ food.idMeal }
             />
           ))
         )}

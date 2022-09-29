@@ -53,7 +53,7 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header />
+      <Header title="Done Recipes" />
       <div>
 
         <button
