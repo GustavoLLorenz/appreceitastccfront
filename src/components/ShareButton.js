@@ -25,6 +25,7 @@ function ShareButton({ index, recipe }) {
         <button
           type="button"
           onClick={ () => handleClick(recipe) }
+          data-testid="button-share"
         >
           <img
             src={ shareIcon }
@@ -39,8 +40,8 @@ function ShareButton({ index, recipe }) {
 }
 
 ShareButton.propTypes = {
-  index: PropTypes.string.isRequired,
-  recipe: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  recipe: PropTypes.shape().isRequired,
 };
 
 export default ShareButton;

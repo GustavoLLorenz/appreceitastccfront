@@ -24,17 +24,6 @@ function Cardapio() {
     return (array.meals).slice(0, array.meals.length);
   };
 
-  // const repetionFunction = (parametro) => {
-  //   (lenghtArray(parametro)).map((food, index) => (
-  //     <Recipes
-  //       key={ food.idMeal }
-  //       imageSrc={ food.strMealThumb }
-  //       index={ index }
-  //       name={ food.strMeal }
-  //     />
-  //   ));
-  // };
-
   return (
     <div>
       <h2>Cardápio de comida</h2>

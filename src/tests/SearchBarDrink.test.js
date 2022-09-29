@@ -1,18 +1,18 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
 import renderWithRouter from './renderWithRouter';
-import ingredietMock from './Mocks/IngredientMock';
-import nameMock from './Mocks/NameMock';
-import letterMock from './Mocks/LetterMock';
-import nullMock from './Mocks/NullMock';
-import oneFoodMock from './Mocks/OneFoodMock';
+import App from '../App';
+import ingredientDrinkMock from './Mocks/IngredientDrinkMock';
+import nullDrinksMock from './Mocks/NullDrinksMock';
+import oneDrinkMock from './Mocks/OneDrinkMock';
+import nameDrinkMock from './Mocks/NameDrinkMock';
+import letterDrinkMock from './Mocks/LetterDrinkMock';
 
-describe('Testando a SearchBar', () => {
-  test('Testando campos de busca', async () => {
+describe('Verifica o componente Footer', () => {
+  test('Verifica o Search Drink', async () => {
     const { history } = renderWithRouter(<App />);
-    // renderWithRouter(<App />);
+
     // Tela Login
     const email = screen.getByTestId('email-input');
     const password = screen.getByTestId('password-input');
@@ -32,13 +32,17 @@ describe('Testando a SearchBar', () => {
 
     // Search
 
-    const searchTop = screen.getByTestId('search-top-btn');
-    expect(searchTop).toBeInTheDocument();
-    userEvent.click(searchTop);
+    const buttonDrink = screen.getByTestId('drinks-bottom-btn');
+    expect(buttonDrink).toBeInTheDocument();
+    userEvent.click(buttonDrink);
 
     const pageTitle = screen.getByTestId('page-title');
     expect(pageTitle).toBeInTheDocument();
-    expect(pageTitle.textContent).toBe('Meals');
+    expect(pageTitle.textContent).toBe('Drinks');
+
+    const searchTop = screen.getByTestId('search-top-btn');
+    expect(searchTop).toBeInTheDocument();
+    userEvent.click(searchTop);
 
     const inputSearch = screen.getByTestId('search-input');
     const ingredientSearch = screen.getByTestId('ingredient-search-radio');
@@ -49,32 +53,32 @@ describe('Testando a SearchBar', () => {
     // Busca por ingredientes
 
     global.fetch = jest.fn(async () => ({
-      json: async () => ingredietMock,
+      json: async () => ingredientDrinkMock,
     }));
 
     expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'Beef');
-    expect(inputSearch).toHaveValue('Beef');
+    userEvent.type(inputSearch, 'Gin');
+    expect(inputSearch).toHaveValue('Gin');
 
     expect(ingredientSearch).toBeInTheDocument();
     userEvent.click(ingredientSearch);
     userEvent.click(buttonSearch);
 
-    const apiIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=Beef';
+    const apiIngredientDrink = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin';
 
-    (ingredietMock.meals).map(({ strMeal }) => async () => {
-      const element = await screen.findByText(strMeal);
+    (ingredientDrinkMock.drinks).map(({ strDrink }) => async () => {
+      const element = await screen.findByText(strDrink);
       expect(element).toBeInTheDocument();
     });
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith(apiIngredient);
+    expect(global.fetch).toHaveBeenCalledWith(apiIngredientDrink);
 
     // Busca Null(pelo nome)
 
     userEvent.clear(inputSearch);
 
     global.fetch = jest.fn(async () => ({
-      json: async () => nullMock,
+      json: async () => nullDrinksMock,
     }));
 
     expect(inputSearch).toBeInTheDocument();
@@ -85,7 +89,7 @@ describe('Testando a SearchBar', () => {
     userEvent.click(nameSearch);
     userEvent.click(buttonSearch);
 
-    const apiNull = 'https://www.themealdb.com/api/json/v1/1/search.php?s=kkkk';
+    const apiNull = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=kkkk';
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(apiNull);
@@ -96,30 +100,32 @@ describe('Testando a SearchBar', () => {
     userEvent.clear(inputSearch);
 
     global.fetch = jest.fn(async () => ({
-      json: async () => nameMock,
+      json: async () => nameDrinkMock,
     }));
 
     expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'Rice');
-    expect(inputSearch).toHaveValue('Rice');
+    userEvent.type(inputSearch, 'Milk');
+    expect(inputSearch).toHaveValue('Milk');
 
     expect(nameSearch).toBeInTheDocument();
     userEvent.click(nameSearch);
     userEvent.click(buttonSearch);
 
-    const apiName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=Rice';
+    const apiNameDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Milk';
 
-    const foodName = await screen.findByText(/Japanese gohan rice/i);
-    expect(foodName).toBeInTheDocument();
+    (nameDrinkMock.drinks).map(({ strDrink }) => async () => {
+      const el = await screen.findByText(strDrink);
+      expect(el).toBeInTheDocument();
+    });
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith(apiName);
+    expect(global.fetch).toHaveBeenCalledWith(apiNameDrink);
 
     // Busca por Letra
 
     userEvent.clear(inputSearch);
 
     global.fetch = jest.fn(async () => ({
-      json: async () => letterMock,
+      json: async () => letterDrinkMock,
     }));
 
     expect(inputSearch).toBeInTheDocument();
@@ -130,14 +136,14 @@ describe('Testando a SearchBar', () => {
     userEvent.click(firstLetterSearch);
     userEvent.click(buttonSearch);
 
-    const apiLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=a';
+    const apiLetterDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a';
 
-    (letterMock.meals).map(({ strMeal }) => async () => {
-      const food = await screen.findByText(strMeal);
-      expect(food).toBeInTheDocument();
+    (letterDrinkMock.drinks).map(({ strDrink }) => async () => {
+      const drink = await screen.findByText(strDrink);
+      expect(drink).toBeInTheDocument();
     });
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith(apiLetter);
+    expect(global.fetch).toHaveBeenCalledWith(apiLetterDrink);
 
     // Testando com duas letras 'aa'
     userEvent.clear(inputSearch);
@@ -158,26 +164,24 @@ describe('Testando a SearchBar', () => {
     userEvent.clear(inputSearch);
 
     global.fetch = jest.fn(async () => ({
-      json: async () => oneFoodMock,
+      json: async () => oneDrinkMock,
     }));
 
     expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'Pizza');
-    expect(inputSearch).toHaveValue('Pizza');
+    userEvent.type(inputSearch, 'Aquamarine');
+    expect(inputSearch).toHaveValue('Aquamarine');
 
     expect(nameSearch).toBeInTheDocument();
     userEvent.click(nameSearch);
     userEvent.click(buttonSearch);
 
-    const apiOneFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=Pizza';
+    const apiOneDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Aquamarine';
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith(apiOneFood);
-
-    // history.push('/meals/53014');
+    expect(global.fetch).toHaveBeenCalledWith(apiOneDrink);
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/meals/53014');
+      expect(history.location.pathname).toBe('/drinks/178319');
     });
   });
 });
