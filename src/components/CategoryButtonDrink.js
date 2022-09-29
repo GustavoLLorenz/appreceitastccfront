@@ -13,7 +13,7 @@ function CategoryButtonDrink() {
         const magicNumber = 5;
         const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
         const response = await fetch(URL);
-        // console.log(response);
+
         const data = await response.json();
         return setButtonDrink((data.drinks).slice(0, magicNumber));
       } catch (error) {
