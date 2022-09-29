@@ -1,16 +1,40 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
-import Profile from '../pages/Profile';
+// import Profile from '../pages/Profile';
 
 describe('Verifica funcionalidades da página de Profile', () => {
-  it('testa se a tela Profile possui todos os botôes', () => {
-    // const { history } = renderWithRouter(<App />);
-    // history.push('/profile');
+  function mealsFood() {
+    const imgMeal = screen.getByAltText(/Img-0/i);
+    expect(imgMeal).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg');
+    const mealsLink = screen.getByRole('link', { name: /Spicy Arrabiata Penne/i });
+    expect(mealsLink).toBeInTheDocument();
+    const doneText = screen.getByText(/Italian - Vegetarian/i);
+    expect(doneText).toBeInTheDocument();
+    const doneDate = screen.getByTestId('0-horizontal-done-date');
+    expect(doneDate).toBeInTheDocument();
+    const doneTag1 = screen.getByText(/Pasta/i);
+    expect(doneTag1).toBeInTheDocument();
+    const doneTag2 = screen.getByText(/Curry/i);
+    expect(doneTag2).toBeInTheDocument();
+  }
+  function drinkFood(id) {
+    const imgDrink = screen.getByAltText(`Img-${id}`);
+    expect(imgDrink).toHaveAttribute('src', 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg');
+    const drinkLink = screen.getByRole('link', { name: /Aquamarine/i });
+    expect(drinkLink).toBeInTheDocument();
+    const doneTextDrink = screen.getByText(/Alcoholic/i);
+    expect(doneTextDrink).toBeInTheDocument();
+    const doneDateDrink = screen.getByTestId(`${id}-horizontal-done-date`);
+    expect(doneDateDrink).toBeInTheDocument();
 
-    renderWithRouter(<App />);
+    const buttonShareDrink = screen.getByTestId(`${id}-horizontal-share-btn`);
+    expect(buttonShareDrink).toBeInTheDocument();
+  }
+  it('testa se a tela Profile possui todos os botôes', async () => {
+    const { history } = renderWithRouter(<App />);
 
     // Tela Login
     const email = screen.getByTestId('email-input');
@@ -42,7 +66,6 @@ describe('Verifica funcionalidades da página de Profile', () => {
     expect(profileEmail).toBeInTheDocument();
     expect(profileEmail.textContent).toBe('xablau@xablau.com ');
     expect(localStorage.getItem('user')).toBeTruthy();
-    // expect(screen.getByText('xablau@xablau.com ')).toBeInTheDocument();
 
     const DoneButton = screen.getByTestId('profile-done-btn');
     expect(DoneButton).toBeInTheDocument();
@@ -55,31 +78,60 @@ describe('Verifica funcionalidades da página de Profile', () => {
 
     // Botões do Profile
     // Testando o Done Recipes
-    const { history } = renderWithRouter(<Profile />);
     userEvent.click(DoneButton);
-    history.push('/done-recipes');
+    // history.push('/done-recipes');
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/done-recipes');
+    });
+    // Testando o DoneRecipes
+    const buttonMeals = screen.getByTestId('filter-by-meal-btn');
+    const buttonDrinks = screen.getByTestId('filter-by-drink-btn');
+    const buttonAll = screen.getByTestId('filter-by-all-btn');
 
-    // Testando o Favorite Recipes
+    expect(buttonAll).toBeInTheDocument();
+    expect(buttonDrinks).toBeInTheDocument();
+    expect(buttonMeals).toBeInTheDocument();
+
+    // Button ALL
+    userEvent.click(buttonAll);
+    mealsFood();
+    drinkFood(1);
+
+    // Button Meals
+    userEvent.click(buttonMeals);
+    mealsFood();
+    const buttonShareMeal = screen.getByTestId('0-horizontal-share-btn');
+    expect(buttonShareMeal).toBeInTheDocument();
+
+    //  console.log(buttonShareMeal)
+    // userEvent.click(buttonShareMeal)
+
+    // Button Drinks
+    userEvent.click(buttonDrinks);
+    drinkFood(0);
+
+    // Retornando ao Profile
     history.push('/profile');
-    userEvent.click(FavoriteButton);
-    history.push('/favorite-recipes');
-    expect(history.location.pathname).toBe('/favorite-recipes');
+
+    // Testando a o Favorite Recipes
+    const btnProfile = screen.getByTestId('profile-top-btn');
+    expect(btnProfile).toBeInTheDocument();
+    const btnFavorite = screen.getByTestId('profile-favorite-btn');
+    expect(btnFavorite).toBeInTheDocument();
+    userEvent.click(btnFavorite);
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/favorite-recipes');
+    });
+
+    // Retornando ao Profile
+    history.push('/profile');
 
     // Testando o Logout
-    history.push('/profile');
-    userEvent.click(LogoutButton);
-    history.push('/');
-    expect(history.location.pathname).toBe('/');
+    const btnLogout = screen.getByTestId('profile-logout-btn');
+    expect(btnLogout).toBeInTheDocument();
+    userEvent.click(btnLogout);
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/');
+    });
   });
-
-  // it('Verifica se o botão favorite redireciona para tela /favorite-recipes', () => {
-  //   const { history } = renderWithRouter(<App />);
-  //   history.push('/profile');
-
-  //   const FavoriteButton = screen.getByTestId('profile-favorite-btn');
-  //   expect(FavoriteButton).toBeInTheDocument();
-
-  //   userEvent.click(FavoriteButton);
-  //   expect(history.location.pathname).toBe('/favorite-recipes');
-  // });
 });

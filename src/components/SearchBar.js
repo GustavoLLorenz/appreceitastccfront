@@ -35,6 +35,7 @@ function SearchBar() {
     }
     if (filterSearch === 'name') {
       const data = await filterName(searchInput);
+      console.log(data);
       verifySearchHelper(data);
     }
     if (filterSearch === 'first') {

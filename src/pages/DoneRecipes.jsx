@@ -53,7 +53,7 @@ function DoneRecipes() {
 
   return (
     <div>
-      <Header />
+      <Header title="Done Recipes" />
       <div>
 
         <button
@@ -88,7 +88,7 @@ function DoneRecipes() {
           >
             <img
               src={ recipe.image }
-              alt=""
+              alt={ `Img-${index}` }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
@@ -126,7 +126,7 @@ function DoneRecipes() {
           <Link to={ (`/meals/${recipe.id}`) }>
             <img
               src={ recipe.image }
-              alt=""
+              alt={ `Img-${index}` }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
@@ -151,7 +151,7 @@ function DoneRecipes() {
           <Link to={ (`/drinks/${recipe.id}`) }>
             <img
               src={ recipe.image }
-              alt=""
+              alt={ `Img-${index}` }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
