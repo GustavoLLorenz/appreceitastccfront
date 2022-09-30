@@ -78,6 +78,7 @@ describe('Verifica funcionalidades da página de Profile', () => {
     expect(LogoutButton).toBeInTheDocument();
 
     // Botões do Profile
+
     // Testando o Done Recipes
     userEvent.click(DoneButton);
     // history.push('/done-recipes');
