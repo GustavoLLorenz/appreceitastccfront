@@ -1,7 +1,10 @@
+import { useHistory } from 'react-router-dom';
 import YoutubeVideo from './YoutubeVideo';
+import '../styles/Details.css';
 
 export default function DetailsMeals(data) {
-  const { strMealThumb, strCategory, strInstructions, strIngredient1, strIngredient2,
+  // eslint-disable-next-line max-len
+  const { idMeal, strMealThumb, strCategory, strInstructions, strIngredient1, strIngredient2,
     strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7,
     strIngredient8, strIngredient9, strIngredient10, /* strIngredient11, strIngredient12,
     strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17,
@@ -12,6 +15,10 @@ export default function DetailsMeals(data) {
     strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19,
     strMeasure20, */
   } = data;
+
+  const history = useHistory();
+  const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const btnProgress = !recipesInProgress ? 'Start Recipe' : 'Continue Recipe';
 
   return (
     <div>
@@ -99,9 +106,19 @@ export default function DetailsMeals(data) {
           {`${strIngredient20} ${strMeasure20}`}
 
         </li> */}
+
       </ul>
       <p data-testid="instructions">{strInstructions}</p>
       {strYoutube && YoutubeVideo(strYoutube.split('v=')[1])}
+      <button
+        type="button"
+        className="div-button"
+        data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/meals/${idMeal}/in-progress`) }
+      >
+        {btnProgress}
+
+      </button>
     </div>
   );
 }
