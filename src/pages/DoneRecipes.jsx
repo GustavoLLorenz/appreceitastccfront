@@ -88,6 +88,7 @@ function DoneRecipes() {
             <img
               src={ recipe.image }
               alt={ `Img-${index}` }
+              role="presentation"
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
@@ -126,6 +127,7 @@ function DoneRecipes() {
             <img
               src={ recipe.image }
               alt={ `Img-${index}` }
+              role="presentation"
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
