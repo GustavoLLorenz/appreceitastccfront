@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useRouteMatch } from 'react-router-dom';
-
-import { getDrinkById, getMealById } from '../services/recipesDetails';
+/* import { useLocation, useRouteMatch } from 'react-router-dom'; */
+import { useHistory } from 'react-router-dom';
+import fetchIdRecipes from '../services/fetchDetails25';
+import DetailsDrinks from '../components/DetailsDrink';
+import DetailsMeals from '../components/DetailsMeals';
 
 function RecipeDetails() {
-  const [setRecipe] = useState(null);
+  const [recipeDetails,
+    setRecipeDetails] = useState([]);
+  const history = useHistory();
+  const { pathname } = history.location;
 
-  const { pathname } = useLocation();
-  const { params } = useRouteMatch();
-  const { id } = params;
-
-  const detailsMeals = /^\/meals\/.*/i.test(pathname);
-  const detailsDrinks = /^\/drinks\/.*/i.test(pathname);
-
-  useEffect(() => {
-    if (detailsDrinks) getDrinkById(id).then(setRecipe);
-    else if (detailsMeals) getMealById(id).then(setRecipe);
-  }, [id, detailsDrinks, detailsMeals, setRecipe]);
-
+  useEffect(
+    () => fetchIdRecipes(history, setRecipeDetails),
+    [history],
+  );
   return (
-    <header>
-      {detailsMeals && !detailsDrinks && <span>Meals</span>}
-      {detailsDrinks && !detailsMeals && <span>Drinks</span>}
-    </header>
+    <body>
+      {pathname.split('/')[1] === 'meals'
+        ? DetailsMeals(recipeDetails)
+        : DetailsDrinks(recipeDetails) }
+    </body>
   );
 }
 
