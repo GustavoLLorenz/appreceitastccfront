@@ -17,6 +17,11 @@ export default function DetailsMeals(data) {
   } = data;
 
   const history = useHistory();
+  let clearButton = '';
+  const doneRecipeLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipeLocal !== null) {
+    clearButton = doneRecipeLocal.some((recipe) => recipe.idMeal !== idMeal);
+  }
   const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const btnProgress = !recipesInProgress ? 'Start Recipe' : 'Continue Recipe';
 
@@ -110,15 +115,17 @@ export default function DetailsMeals(data) {
       </ul>
       <p data-testid="instructions">{strInstructions}</p>
       {strYoutube && YoutubeVideo(strYoutube.split('v=')[1])}
-      <button
-        type="button"
-        className="div-button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/meals/${idMeal}/in-progress`) }
-      >
-        {btnProgress}
+      {clearButton === '' && (
+        <button
+          type="button"
+          className="div-button"
+          data-testid="start-recipe-btn"
+          onClick={ () => history.push(`/meals/${idMeal}/in-progress`) }
+        >
+          {btnProgress}
 
-      </button>
+        </button>
+      )}
     </div>
   );
 }
