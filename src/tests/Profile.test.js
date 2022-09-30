@@ -3,7 +3,8 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import App from '../App';
-// import Profile from '../pages/Profile';
+
+jest.mock('clipboard-copy'); // adicionando a biblioteca
 
 describe('Verifica funcionalidades da página de Profile', () => {
   function mealsFood() {
@@ -30,9 +31,8 @@ describe('Verifica funcionalidades da página de Profile', () => {
     expect(doneTextDrink).toBeInTheDocument();
     const doneDateDrink = screen.getByTestId(`${id}-horizontal-done-date`);
     expect(doneDateDrink).toBeInTheDocument();
-
-    const buttonShareDrink = screen.getByTestId(`${id}-horizontal-share-btn`);
-    expect(buttonShareDrink).toBeInTheDocument();
+    const doneDrinkTag = screen.getByText(/Limon/i);
+    expect(doneDrinkTag).toBeInTheDocument();
   }
   it('testa se a tela Profile possui todos os botôes', async () => {
     const { history } = renderWithRouter(<App />);
@@ -78,6 +78,7 @@ describe('Verifica funcionalidades da página de Profile', () => {
     expect(LogoutButton).toBeInTheDocument();
 
     // Botões do Profile
+
     // Testando o Done Recipes
     userEvent.click(DoneButton);
     // history.push('/done-recipes');
@@ -101,15 +102,22 @@ describe('Verifica funcionalidades da página de Profile', () => {
     // Button Meals
     userEvent.click(buttonMeals);
     mealsFood();
+
     const buttonShareMeal = screen.getByTestId('0-horizontal-share-btn');
     expect(buttonShareMeal).toBeInTheDocument();
-
-    //  console.log(buttonShareMeal)
-    // userEvent.click(buttonShareMeal)
+    userEvent.click(buttonShareMeal);
+    const shareText = screen.getByText(/Link copied!/i);
+    expect(shareText).toBeInTheDocument();
 
     // Button Drinks
     userEvent.click(buttonDrinks);
     drinkFood(0);
+
+    const buttonShareDrink = screen.getByTestId('0-horizontal-share-btn');
+    expect(buttonShareDrink).toBeInTheDocument();
+    userEvent.click(buttonShareDrink);
+    const shareDrinkText = screen.getByText(/Link copied!/i);
+    expect(shareDrinkText).toBeInTheDocument();
 
     // Retornando ao Profile
     history.push('/profile');

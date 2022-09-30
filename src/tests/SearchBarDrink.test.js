@@ -73,6 +73,15 @@ describe('Verifica o componente Footer', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(apiIngredientDrink);
 
+    // Testando Recipe / drinks
+
+    // const imgButton = await screen.findByRole('button', { name: /3-Mile Long Island Iced Tea/i });
+    // expect(imgButton).toBeInTheDocument();
+    // userEvent.click(imgButton);
+    // await waitFor(() => {
+    //   expect(history.location.pathname).toBe('/drinks/15300');
+    // });
+
     // Busca Null(pelo nome)
 
     userEvent.clear(inputSearch);

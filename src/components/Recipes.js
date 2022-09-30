@@ -14,7 +14,7 @@ function Recipes({ imageSrc, index, name, id }) {
   return (
 
     <li data-testid={ `${index}-recipe-card` }>
-      <button type="button" onClick={ handleClick }>
+      <button type="button" name={ name } onClick={ handleClick }>
         <img
           src={ imageSrc }
           data-testid={ `${index}-card-img` }
@@ -32,7 +32,7 @@ Recipes.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Recipes;
