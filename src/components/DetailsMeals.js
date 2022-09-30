@@ -3,8 +3,8 @@ import YoutubeVideo from './YoutubeVideo';
 import '../styles/Details.css';
 
 export default function DetailsMeals(data) {
-  // eslint-disable-next-line max-len
-  const { idMeal, strMealThumb, strCategory, strInstructions, strIngredient1, strIngredient2,
+  const { idMeal, strMealThumb, strCategory, strInstructions,
+    strIngredient1, strIngredient2,
     strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7,
     strIngredient8, strIngredient9, strIngredient10, /* strIngredient11, strIngredient12,
     strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17,
