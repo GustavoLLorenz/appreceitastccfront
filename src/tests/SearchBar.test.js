@@ -69,6 +69,15 @@ describe('Testando a SearchBar', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(apiIngredient);
 
+    // Testando Recipe / meals
+
+    const imgButton = await screen.findByRole('button', { name: /Beef and Mustard Pie/i });
+    expect(imgButton).toBeInTheDocument();
+    userEvent.click(imgButton);
+    // await waitFor(() => {
+    //   expect(history.location.pathname).toBe('/meals/52874');
+    // });
+
     // Busca Null(pelo nome)
 
     userEvent.clear(inputSearch);
@@ -173,8 +182,6 @@ describe('Testando a SearchBar', () => {
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(apiOneFood);
-
-    // history.push('/meals/53014');
 
     await waitFor(() => {
       expect(history.location.pathname).toBe('/meals/53014');

@@ -7,15 +7,12 @@ import ButtonFilterReset from './ButtonFilterReset';
 function Cardapio() {
   const { dataSearch } = useContext(MyContext);
   const [fetchData, setFetchData] = useState({});
-  // console.log
-  // const maximumLine = 12;
   useEffect(() => {
     const apiRequest = async () => {
       const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       const response = await fetch(URL);
       const data = await response.json();
       setFetchData(data);
-      console.log(data);
     };
     apiRequest();
   }, []);

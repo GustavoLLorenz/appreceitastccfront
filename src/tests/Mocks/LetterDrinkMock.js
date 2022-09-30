@@ -1,16 +1,16 @@
 const strGlass = {
-  cocktail,
-  Highballglass,
+  cocktail: 'cocktail',
+  Highballglass: 'Highballglass',
 };
 
 const OrdinaryDrinks = {
-  OrdinaryDrink,
+  OrdinaryDrink: 'OrdinaryDrink',
 };
 
 const srtIngredients = {
-  Lemonjuice,
-  Orangejuice,
-  DryVermouth,
+  Lemonjuice: 'Lemonjuice',
+  Orangejuice: 'Orangejuice',
+  DryVermouth: 'DryVermouth',
 };
 
 const letterDrinkMock = {
