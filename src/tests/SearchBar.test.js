@@ -74,11 +74,12 @@ describe('Testando a SearchBar', () => {
     const imgButton = await screen.findByRole('button', { name: /Beef and Mustard Pie/i });
     expect(imgButton).toBeInTheDocument();
     userEvent.click(imgButton);
-    // await waitFor(() => {
-    //   expect(history.location.pathname).toBe('/meals/52874');
-    // });
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/meals/52874');
+    });
 
     // Busca Null(pelo nome)
+    // Fazendo alteração da rota lllllllllllllllllllll
 
     userEvent.clear(inputSearch);
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
+import './DoneRecipes.css';
 
 function DoneRecipes() {
   const [searchMeals, setSearchMeals] = useState(false);
@@ -86,6 +87,7 @@ function DoneRecipes() {
               : (`/drinks/${recipe.id}`) }
           >
             <img
+              className="imgDom"
               src={ recipe.image }
               alt={ `Img-${index}` }
               role="presentation"
@@ -123,12 +125,14 @@ function DoneRecipes() {
       {searchMeals
       && doneRecipes.filter((e) => e.type === 'meal').map((recipe, index) => (
         <div key={ recipe.name }>
-          <Link to={ (`/meals/${recipe.id}`) }>
+          <Link
+            to={ (`/meals/${recipe.id}`) }
+            data-testid={ `${index}-horizontal-image` }
+          >
             <img
+              className="imgDom"
               src={ recipe.image }
               alt={ `Img-${index}` }
-              role="presentation"
-              data-testid={ `${index}-horizontal-image` }
             />
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
@@ -151,6 +155,7 @@ function DoneRecipes() {
         <div key={ recipe.name }>
           <Link to={ (`/drinks/${recipe.id}`) }>
             <img
+              className="imgDom"
               src={ recipe.image }
               alt={ `Img-${index}` }
               role="presentation"
