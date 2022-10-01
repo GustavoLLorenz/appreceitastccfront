@@ -42,8 +42,6 @@ describe('Testando a SearchBar', () => {
 
     const inputSearch = screen.getByTestId('search-input');
     const ingredientSearch = screen.getByTestId('ingredient-search-radio');
-    const nameSearch = screen.getByTestId('name-search-radio');
-    const firstLetterSearch = screen.getByTestId('first-letter-search-radio');
     const buttonSearch = screen.getByTestId('exec-search-btn');
 
     // Busca por ingredientes
@@ -78,22 +76,31 @@ describe('Testando a SearchBar', () => {
       expect(history.location.pathname).toBe('/meals/52874');
     });
 
-    // Busca Null(pelo nome)
-    // Fazendo alteração da rota lllllllllllllllllllll
+    history.push('/meals');
 
-    userEvent.clear(inputSearch);
+    const searchTopButton = screen.getByTestId('search-top-btn');
+    expect(searchTopButton).toBeInTheDocument();
+    userEvent.click(searchTopButton);
+
+    const nameSearch = screen.getByTestId('name-search-radio');
+    const firstLetterSearch = screen.getByTestId('first-letter-search-radio');
+    const buttonSearchBar = screen.getByTestId('exec-search-btn');
+
+    // Busca Null(pelo nome)
+
+    const inputSearchBar = screen.getByTestId('search-input');
+    expect(inputSearchBar).toBeInTheDocument();
 
     global.fetch = jest.fn(async () => ({
       json: async () => nullMock,
     }));
 
-    expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'kkkk');
-    expect(inputSearch).toHaveValue('kkkk');
+    userEvent.type(inputSearchBar, 'kkkk');
+    expect(inputSearchBar).toHaveValue('kkkk');
 
     expect(nameSearch).toBeInTheDocument();
     userEvent.click(nameSearch);
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearchBar);
 
     const apiNull = 'https://www.themealdb.com/api/json/v1/1/search.php?s=kkkk';
 
@@ -103,19 +110,19 @@ describe('Testando a SearchBar', () => {
 
     // Busca por Nome
 
-    userEvent.clear(inputSearch);
+    userEvent.clear(inputSearchBar);
 
     global.fetch = jest.fn(async () => ({
       json: async () => nameMock,
     }));
 
-    expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'Rice');
-    expect(inputSearch).toHaveValue('Rice');
+    expect(inputSearchBar).toBeInTheDocument();
+    userEvent.type(inputSearchBar, 'Rice');
+    expect(inputSearchBar).toHaveValue('Rice');
 
     expect(nameSearch).toBeInTheDocument();
     userEvent.click(nameSearch);
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearchBar);
 
     const apiName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=Rice';
 
@@ -126,19 +133,19 @@ describe('Testando a SearchBar', () => {
 
     // Busca por Letra
 
-    userEvent.clear(inputSearch);
+    userEvent.clear(inputSearchBar);
 
     global.fetch = jest.fn(async () => ({
       json: async () => letterMock,
     }));
 
-    expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'a');
-    expect(inputSearch).toHaveValue('a');
+    expect(inputSearchBar).toBeInTheDocument();
+    userEvent.type(inputSearchBar, 'a');
+    expect(inputSearchBar).toHaveValue('a');
 
     expect(firstLetterSearch).toBeInTheDocument();
     userEvent.click(firstLetterSearch);
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearchBar);
 
     const apiLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=a';
 
@@ -150,34 +157,34 @@ describe('Testando a SearchBar', () => {
     expect(global.fetch).toHaveBeenCalledWith(apiLetter);
 
     // Testando com duas letras 'aa'
-    userEvent.clear(inputSearch);
+    userEvent.clear(inputSearchBar);
 
-    expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'aa');
-    expect(inputSearch).toHaveValue('aa');
+    expect(inputSearchBar).toBeInTheDocument();
+    userEvent.type(inputSearchBar, 'aa');
+    expect(inputSearchBar).toHaveValue('aa');
 
     expect(firstLetterSearch).toBeInTheDocument();
     userEvent.click(firstLetterSearch);
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearchBar);
 
     // Testando o windows.alert
     jest.spyOn(window, 'alert').mockImplementation(() => {});
 
     // Busca com apenas 1 elemento (pelo nome)
 
-    userEvent.clear(inputSearch);
+    userEvent.clear(inputSearchBar);
 
     global.fetch = jest.fn(async () => ({
       json: async () => oneFoodMock,
     }));
 
-    expect(inputSearch).toBeInTheDocument();
-    userEvent.type(inputSearch, 'Pizza');
-    expect(inputSearch).toHaveValue('Pizza');
+    expect(inputSearchBar).toBeInTheDocument();
+    userEvent.type(inputSearchBar, 'Pizza');
+    expect(inputSearchBar).toHaveValue('Pizza');
 
     expect(nameSearch).toBeInTheDocument();
     userEvent.click(nameSearch);
-    userEvent.click(buttonSearch);
+    userEvent.click(buttonSearchBar);
 
     const apiOneFood = 'https://www.themealdb.com/api/json/v1/1/search.php?s=Pizza';
 

@@ -5,10 +5,10 @@ function Recipes({ imageSrc, index, name, id }) {
   const history = useHistory();
   const handleClick = () => {
     const path = history.location.pathname;
-    console.log(path);
     if (path === '/meals') {
       history.push(`/meals/${id}`);
-    } else if (path === '/drinks') {
+    }
+    if (path === '/drinks') {
       history.push(`/drinks/${id}`);
     }
   };
