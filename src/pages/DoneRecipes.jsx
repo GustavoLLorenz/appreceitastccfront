@@ -90,6 +90,8 @@ function DoneRecipes() {
               alt={ `Img-${index}` }
               role="presentation"
               data-testid={ `${index}-horizontal-image` }
+              width="300"
+              height="300"
             />
           </Link>
           <Link
