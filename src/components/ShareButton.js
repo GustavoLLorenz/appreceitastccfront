@@ -29,7 +29,7 @@ function ShareButton({ index, recipe }) {
         >
           <img
             src={ shareIcon }
-            alt=" "
+            alt="Share Img"
             data-testid={ `${index}-horizontal-share-btn` }
           />
         </button>
