@@ -119,32 +119,24 @@ export default function DetailsMeals(data) {
       </ul>
       <p data-testid="instructions">{strInstructions}</p>
       {strYoutube && YoutubeVideo(strYoutube.split('v=')[1])}
-      <button
-        type="button"
-        className="div-button"
-        data-testid="start-recipe-btn"
-        onClick={ () => history.push(`/meals/${idMeal}/in-progress`) }
-      >
-        {btnProgress}
+      <div>
+        <CarouselDrinks />
+        {clearButton === '' && (
+          <button
+            style={ { marginLeft: '300px' } }
+            type="button"
+            className="div-button"
+            data-testid="start-recipe-btn"
+            onClick={ () => {
+              history.push(`/meals/${idMeal}/in-progress`);
+              setIdDetails(idMeal);
+            } }
+          >
+            {btnProgress}
 
-      </button>
-     <div>
-      <CarouselDrinks />
-      {clearButton === '' && (
-        <button
-          style={ { marginLeft: '300px' } }
-          type="button"
-          className="div-button"
-          data-testid="start-recipe-btn"
-          onClick={ () => {
-            history.push(`/meals/${idMeal}/in-progress`);
-            setIdDetails(idMeal);
-          } }
-        >
-          {btnProgress}
-
-        </button>
-      )}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
