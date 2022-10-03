@@ -53,6 +53,7 @@ describe('Testando o RecipesProgress', () => {
 
     expect(ingredientSearch).toBeInTheDocument();
     userEvent.click(ingredientSearch);
+
     userEvent.click(buttonSearch);
 
     const apiIngredient = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=Beef';
