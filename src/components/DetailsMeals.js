@@ -120,6 +120,7 @@ export default function DetailsMeals(data) {
       {strYoutube && YoutubeVideo(strYoutube.split('v=')[1])}
       {clearButton === '' && (
         <button
+          style={ { marginLeft: '300px' } }
           type="button"
           className="div-button"
           data-testid="start-recipe-btn"
