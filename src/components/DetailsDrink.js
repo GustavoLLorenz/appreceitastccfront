@@ -1,10 +1,12 @@
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import YoutubeVideo from './YoutubeVideo';
 import '../styles/Details.css';
 import CarouselFood from './CarouselFood';
-
+import MyContext from '../context/Context';
 
 export default function DetailsDrinks(data) {
+  const { setIdDetails } = useContext(MyContext);
   const { idDrink, strDrinkThumb, strAlcoholic,
     strInstructions, strIngredient1, strIngredient2,
     strIngredient3, strIngredient4, strIngredient5, /* strIngredient6, strIngredient7,
@@ -19,6 +21,11 @@ export default function DetailsDrinks(data) {
   } = data;
 
   const history = useHistory();
+  let clearButton = '';
+  const doneRecipeLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipeLocal !== null) {
+    clearButton = doneRecipeLocal.some((recipe) => recipe.idDrink !== idDrink);
+  }
 
   const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const btnProgress = !recipesInProgress ? 'Start Recipe' : 'Continue Recipe';
@@ -124,6 +131,20 @@ export default function DetailsDrinks(data) {
       </button>
      <div>
       <CarouselFood />
+      {clearButton === '' && (
+        <button
+          type="button"
+          className="div-button"
+          data-testid="start-recipe-btn"
+          onClick={ () => {
+            history.push(`/drinks/${idDrink}/in-progress`);
+            setIdDetails(idDrink);
+          } }
+        >
+          {btnProgress}
+
+        </button>
+      )}
     </div>
   );
 }

@@ -4,10 +4,11 @@ import { useHistory } from 'react-router-dom';
 function Recipes({ imageSrc, index, name, id }) {
   const history = useHistory();
   const handleClick = () => {
-    const path = window.location.pathname;
+    const path = history.location.pathname;
     if (path === '/meals') {
       history.push(`/meals/${id}`);
-    } else if (path === '/drinks') {
+    }
+    if (path === '/drinks') {
       history.push(`/drinks/${id}`);
     }
   };

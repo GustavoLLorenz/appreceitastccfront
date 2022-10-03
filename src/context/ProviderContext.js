@@ -11,6 +11,7 @@ function ProviderContext({ children }) {
   const [dataSearchDrink, setDataSearchDrink] = useState({});
   const [carouselDrinks, setCarouselDrinks] = useState({});
   const [carouselFood, setCarouselFood] = useState({});
+  const [idDetails, setIdDetails] = useState('');
 
   const contextValue = {
     buttonDisable,
@@ -29,6 +30,8 @@ function ProviderContext({ children }) {
     setCarouselDrinks,
     carouselFood,
     setCarouselFood,
+    idDetails,
+    setIdDetails,
   };
 
   return (
