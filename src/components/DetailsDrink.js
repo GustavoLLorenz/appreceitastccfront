@@ -1,8 +1,11 @@
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import YoutubeVideo from './YoutubeVideo';
 import '../styles/Details.css';
+import MyContext from '../context/Context';
 
 export default function DetailsDrinks(data) {
+  const { setIdDetails } = useContext(MyContext);
   const { idDrink, strDrinkThumb, strAlcoholic,
     strInstructions, strIngredient1, strIngredient2,
     strIngredient3, strIngredient4, strIngredient5, /* strIngredient6, strIngredient7,
@@ -122,7 +125,10 @@ export default function DetailsDrinks(data) {
           type="button"
           className="div-button"
           data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/drinks/${idDrink}/in-progress`) }
+          onClick={ () => {
+            history.push(`/drinks/${idDrink}/in-progress`);
+            setIdDetails(idDrink);
+          } }
         >
           {btnProgress}
 
