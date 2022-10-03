@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import MyContext from '../context/Context';
 
 function RecipeInProgress() {
+  const { idDetails } = useContext(MyContext);
   const [mealsRoute, setMealsRoute] = useState(false);
   const [drinksRoute, setDrinksRoute] = useState(false);
   const [mealDetails, setMealDetails] = useState({});
   const [drinkDetails, setDrinkDetails] = useState({});
   useEffect(() => {
     const fetchMenus = async () => {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idDetails}`);
       const results = await response.json();
       setMealDetails(results);
       setMealsRoute(true);
     };
     const fetchBebidas = async () => {
-      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDetails}`);
       const results = await response.json();
       setDrinkDetails(results);
       setDrinksRoute(true);
@@ -24,10 +26,10 @@ function RecipeInProgress() {
     if (window.location.pathname.includes('/drinks')) {
       fetchBebidas();
     }
-  }, []);
+  }, [], idDetails);
   return (
     <div>
-      Recipe in Progress
+      <h2>Recipe in Progress</h2>
       {mealsRoute
       && mealDetails.meals.map((elem, index) => (
         <div key={ index }>
